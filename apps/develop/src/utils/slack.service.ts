@@ -12,7 +12,7 @@ export class SlackService {
   async send(message: string): Promise<void> {
     try {
       const data = {
-        email: config.get('EMAIL'),
+        email: config.get('SLACK_EMAIL'),
         message: message,
       };
 
