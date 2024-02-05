@@ -1,0 +1,24 @@
+{
+  "name": "develop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/develop/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "develop:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "develop:build:development"
+        },
+        "production": {
+          "buildTarget": "develop:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
