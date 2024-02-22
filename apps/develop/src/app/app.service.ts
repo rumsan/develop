@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import axios from 'axios';
+import { exec } from 'child_process';
 import { SlackService } from '../utils/slack.service';
 
 @Injectable()
@@ -8,9 +10,13 @@ export class AppService {
     return { message: 'Hello API' };
   }
 
-  async otp(data: any) {
-    this.slackService.send(
-      `OTP for login: ${data.otp}\n access_token: ${data.access_token}`
-    );
+  async otp(otpData: any) {
+    const { data } = await axios.post(`${otpData.origin}/v1/auth/login`, {
+      challenge: otpData.challenge,
+      otp: otpData.otp,
+    });
+    exec(`echo -n "${data.data.accessToken}" | xclip -selection clipboard`);
+    this.slackService.send(`OTP: ${otpData.otp}`);
+    console.log(data.data.accessToken);
   }
 }

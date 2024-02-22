@@ -16,9 +16,11 @@ async function bootstrap() {
   // );
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.TCP,
+    transport: Transport.REDIS,
     options: {
-      port: 7777,
+      host: 'localhost',
+      port: 6379,
+      password: '',
     },
   });
   const globalPrefix = 'api';

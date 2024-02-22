@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
 
 @Controller()
@@ -11,8 +11,8 @@ export class AppController {
     return this.appService.getData();
   }
 
-  @EventPattern('otp')
-  handleUserCreated(data: any) {
+  @MessagePattern({ cmd: 'slack', dev: true })
+  sendOtp(data: any) {
     this.appService.otp(data);
   }
 }
